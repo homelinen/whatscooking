@@ -85,3 +85,9 @@ bower_components/
 
 # Flask-Assets Builds
 static/all_*
+
+# Migration Files
+alembic.ini
+
+# Docker Compose
+secrets.env

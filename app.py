@@ -1,9 +1,11 @@
 import itertools
 import os
 
-from flask import Flask, render_template, abort
+from flask import Flask, render_template, abort, request
 from flask.ext import assets
 
+from whatscooking.database import init_db, db_session
+from whatscooking.models.recipes import Recipe
 from whatscooking.fixtures import recipe_list, week_list
 
 app = Flask(__name__)
@@ -32,6 +34,7 @@ def home():
 
 @app.route('/recipes')
 def recipes():
+    recipe_list = Recipe.query.all()
     return render_template('recipes.html.jinja2', recipes=recipe_list)
 
 
@@ -50,6 +53,20 @@ def get_recipe(recipe):
         name=recipe['name'],
         ingredients=recipe['ingredients'],
         instructions=recipe['steps'])
+
+
+@app.route('/recipes', methods=['POST'])
+def create_recipe():
+
+    # FIXME: Sanitize this
+    name = request.form['name']
+    r = Recipe(name)
+
+    # FIXME: Names don't have to be unique
+    db_session.add(r)
+    db_session.commit()
+
+    return r.get_id()
 
 
 def get_recipe_ingredients(recipe):
@@ -93,6 +110,13 @@ def get_week():
                            week_view=week_view, days=days)
 
 
+@app.teardown_appcontext
+def shutdown_session(exception=None):
+    db_session.remove()
+
+
 if __name__ == "__main__":
+    init_db()
+
     app.debug = True
     app.run()
