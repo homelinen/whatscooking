@@ -1,4 +1,7 @@
 from flask import Flask, render_template, abort
+
+import itertools
+
 from whatscooking.fixtures import recipe_list, week_list
 
 app = Flask(__name__)
@@ -31,6 +34,20 @@ def get_recipe(recipe):
         instructions=recipe['steps'])
 
 
+def get_recipe_ingredients(recipe):
+    """
+    Lookup the ingredients belonging to a recipe
+    """
+
+    ingredients = list(itertools.chain.from_iterable([
+        i['ingredients']
+        for i in recipe_list
+        if i['name'] == recipe
+    ]))
+
+    return ingredients
+
+
 @app.route('/thisweek')
 def get_week():
     # FIXME: Assummed Sorted
@@ -46,12 +63,16 @@ def get_week():
         v_item['recipes'] = recipes
 
         # get ingredients from recipe
-        v_item['ingredients'] = ['tomato']
+        v_item['ingredients'] = []
+        for r in recipes:
+            v_item['ingredients'] = (
+                v_item['ingredients'] + get_recipe_ingredients(r))
 
         week_view.append(v_item)
 
-    days = [ day['day'] for day in week_view ]
-    return render_template('week_view.html.jinja2', week_view=week_view, days=days)
+    days = [day['day'] for day in week_view]
+    return render_template('week_view.html.jinja2',
+                           week_view=week_view, days=days)
 
 
 if __name__ == "__main__":

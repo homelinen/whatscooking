@@ -36,10 +36,12 @@ week_list = {
         },
     "2016wk4": {
         'Wed': [],
-        'Thu': [],
+        'Thu': [
+            "spaghetti bolognese"
+        ],
         'Fri': [],
         'Sat': [
-            "pizza" 
+            "pizza"
         ],
         'Sun': [],
         'Mon': [],

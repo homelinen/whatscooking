@@ -22,6 +22,21 @@
         </td>
       {% endfor %}
       </tr>
+      <tr>
+      {% for d in week_view %}
+        <td>
+          {% if d['ingredients'] %}
+          <p>Ingredients</p>
+          <ul>
+          {% for ingredient in d['ingredients'] %}
+            <li>{{ ingredient }}</li>
+          {% endfor %}
+          </ul>
+          {% endif %}
+        </td>
+      {% endfor %}
+      </tr>
   </tbody>
+</table>
 
 {% endblock %}
