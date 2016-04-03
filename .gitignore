@@ -82,3 +82,6 @@ bower_components/
 
 # Flask-Assets Build Dir
 .webassets-cache
+
+# Flask-Assets Builds
+static/all_*
