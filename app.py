@@ -1,5 +1,5 @@
 from flask import Flask, render_template, abort
-from whatscooking.fixtures import recipe_list
+from whatscooking.fixtures import recipe_list, week_list
 
 app = Flask(__name__)
 
@@ -29,6 +29,29 @@ def get_recipe(recipe):
         name=recipe['name'],
         ingredients=recipe['ingredients'],
         instructions=recipe['steps'])
+
+
+@app.route('/thisweek')
+def get_week():
+    # FIXME: Assummed Sorted
+    week = week_list[list(week_list.keys())[-1]]
+
+    week_view = []
+
+    for day, recipes in week.items():
+        v_item = {}
+        v_item['day'] = day
+
+        # Turn recipes into links?
+        v_item['recipes'] = recipes
+
+        # get ingredients from recipe
+        v_item['ingredients'] = ['tomato']
+
+        week_view.append(v_item)
+
+    days = [ day['day'] for day in week_view ]
+    return render_template('week_view.html.jinja2', week_view=week_view, days=days)
 
 
 if __name__ == "__main__":

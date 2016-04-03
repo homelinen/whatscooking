@@ -20,3 +20,28 @@ recipe_list = [{
         "When pasta is cooking mix into the bolognese"
     ]
 }]
+
+week_list = {
+    "2016wk3": {
+        'Mon': [
+            "burgers"
+        ],
+        'Tue': [
+            "spaghetti bolognese"
+        ],
+        'Wed': [],
+        'Thu': [],
+        'Fri': [],
+        'Sat': [],
+        },
+    "2016wk4": {
+        'Wed': [],
+        'Thu': [],
+        'Fri': [],
+        'Sat': [
+            "pizza" 
+        ],
+        'Sun': [],
+        'Mon': [],
+    }
+}
