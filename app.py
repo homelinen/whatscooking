@@ -1,10 +1,28 @@
-from flask import Flask, render_template, abort
-
 import itertools
+import os
+
+from flask import Flask, render_template, abort
+from flask.ext import assets
 
 from whatscooking.fixtures import recipe_list, week_list
 
 app = Flask(__name__)
+env = assets.Environment(app)
+
+# Tell flask-assets where to look
+env.load_path = [
+    os.path.join(os.path.dirname(__file__), 'bower_components'),
+]
+
+env.register(
+    'css_all',
+    assets.Bundle(
+        'normalize-css/normalize.css',
+        'pure/src/base/css/base.css',
+        'pure/src/tables/css/tables.css',
+        output='all_css.css'
+    )
+)
 
 
 @app.route('/')

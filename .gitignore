@@ -76,3 +76,9 @@ ENV/
 
 # Spyder project settings
 .spyderproject
+
+# Bower 
+bower_components/
+
+# Flask-Assets Build Dir
+.webassets-cache
