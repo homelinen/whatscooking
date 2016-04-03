@@ -1,0 +1,18 @@
+{% extends "layout.html.jinja2" %}
+
+{% block content %}
+<h2>Recipes</h2>
+
+<h3>All Recipes</h3>
+<ul>
+{% for recipe in recipes %}
+    <li class="recipe_name">
+        <a href="{{ url_for('get_recipe', recipe=recipe.name) }}">{{ recipe.name }}</a>
+    </li> 
+{% endfor %}
+</ul>
+
+<h3>Your Recipes</h3>
+
+<p>TODO</p>
+{% endblock %}

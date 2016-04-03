@@ -1,0 +1,22 @@
+{% extends "layout.html.jinja2" %}
+
+{% block content %}
+<h2>{{ name }}</h2>
+
+<h3>Ingredients</h3>
+
+<ul>
+{% for i in ingredients %}
+  <li class="ingredient_name">{{ i }}</li>
+{% endfor %}
+</ul>
+
+<h3>Instructions</h3>
+
+<ol>
+{% for i in instructions %}
+  <li class="instruction_description">{{ i }}</li>
+{% endfor %}
+</ol>
+
+{% endblock %}
